@@ -2,7 +2,7 @@
 using ProjetoBanco.Infrastructure.Data;
 using ProjetoBanco.Infrastructure.Repositories;
 
-Console.WriteLine("--- Conectando ao Banco de Dados ---");
+// Console.WriteLine("--- Conectando ao Banco de Dados ---");
 using var dbContext = new BancoDBContext();
 var repositorio = new ContaRepositorio(dbContext);
 
@@ -28,18 +28,23 @@ Conta c2 = await ObterOuCriarContaAsync(new ContaCorrente("54321", "Maria S O Si
 Conta c3 = await ObterOuCriarContaAsync(new ContaPoupanca("67890", "Carlos A O Silva", 2000m, 5m));
 Conta c4 = await ObterOuCriarContaAsync(new ContaPoupanca("09876", "Ana C O Silva", 1500m, 3m));
 
-c1.Depositar(1000m);
-c2.Depositar(1000m);
-c3.Depositar(1000m);
-c4.Depositar(1000m);
+c1.ExibirExtrato();
+c2.ExibirExtrato();
+c3.ExibirExtrato();
+c4.ExibirExtrato();
 
-c1.Transferir(c3, 500m);
-c2.Transferir(c4, 500m);
+// c1.Depositar(1000m);
+// c2.Depositar(1000m);
+// c3.Depositar(1000m);
+// c4.Depositar(1000m);
 
-await repositorio.AtualizarContaAsync(c1);
-await repositorio.AtualizarContaAsync(c2);
-await repositorio.AtualizarContaAsync(c3);
-await repositorio.AtualizarContaAsync(c4);
+// c1.Transferir(c3, 500m);
+// c2.Transferir(c4, 500m);
+
+// await repositorio.AtualizarContaAsync(c1);
+// await repositorio.AtualizarContaAsync(c2);
+// await repositorio.AtualizarContaAsync(c3);
+// await repositorio.AtualizarContaAsync(c4);
 
 // Conta c1 = await ObterOuCriarContaAsync(new ContaCorrente("24680", "João S Silva", 1450m, 500m));
 // // c1.Depositar(1221m); // 2671
