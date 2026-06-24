@@ -7,6 +7,7 @@ Um sistema bancário completo e robusto desenvolvido em C# utilizando os princí
 * **C#** (Linguagem de programação principal)
 * **.NET SDK** (Plataforma e ecossistema de desenvolvimento)
 * **Entity Framework Core** (ORM utilizado para persistência em banco de dados)
+* **Docker** (Containerização do ambiente de banco de dados com SQL Server)
 * **SQL Server** (Banco de dados relacional para armazenamento das contas e históricos)
 * **xUnit** (Framework utilizado para a criação dos testes unitários)
 
@@ -283,29 +284,38 @@ O projeto foi construído focando em qualidade, contando com extensivos testes a
 
 ### Pré-requisitos
 * **.NET SDK** (Recomendado 6.0 ou superior) instalado em sua máquina.
-* **SQL Server** rodando localmente (via instalador ou Docker) ou remoto.
+* **Docker e Docker Compose** instalados e em execução.
 
 ### Passo a Passo
 
 1. Clone o repositório ou baixe o código fonte.
 2. Abra o terminal na pasta raiz do projeto.
-3. **Configure as Variáveis de Ambiente:** O sistema aguarda a configuração da conexão do banco de dados na variável `CONNECTION_STRING`.
+3. **Configuração do Ambiente Docker:** O projeto utiliza Docker para gerenciar o SQL Server, garantindo um ambiente de desenvolvimento consistente.
+   * Crie um arquivo chamado `.env` na raiz do projeto com o seguinte conteúdo, definindo uma senha segura para o banco de dados:
+     ```
+     SQL_DOCKER_PASSWORD=SuaSenhaForteAqui!123
+     ```
+   * Inicie o container do SQL Server com o Docker Compose:
+     ```bash
+     docker-compose up -d
+     ```
+4. **Configure a Connection String da Aplicação:** A aplicação C# precisa se conectar ao banco de dados no Docker. Defina a variável de ambiente `CONNECTION_STRING` no seu terminal. **Use a mesma senha definida no arquivo `.env`**.
    * Em ambiente Windows (CMD):
      ```bash
-     set CONNECTION_STRING=Server=SEU_SERVIDOR;Database=BancoDB;Trusted_Connection=True;TrustServerCertificate=True;
+     set CONNECTION_STRING=Server=localhost;Database=BancoDB;User Id=sa;Password=SuaSenhaForteAqui!123;TrustServerCertificate=True;
      ```
    * Em ambiente PowerShell:
      ```powershell
-     $env:CONNECTION_STRING="Server=SEU_SERVIDOR;Database=BancoDB;Trusted_Connection=True;TrustServerCertificate=True;"
+     $env:CONNECTION_STRING="Server=localhost;Database=BancoDB;User Id=sa;Password=SuaSenhaForteAqui!123;TrustServerCertificate=True;"
      ```
-4. **Para ver o programa funcionando na prática (Console):**
+5. **Para ver o programa funcionando na prática (Console):**
    ```bash
    cd ProjetoBanco.ConsoleApp
    dotnet run
    ```
    *O console exibirá criações de contas, transferências sendo feitas, o impacto do cheque especial e a listagem dos extratos finais.*
 
-5. **Para rodar a bateria de testes automatizados e validar o código:**
+6. **Para rodar a bateria de testes automatizados e validar o código:**
    ```bash
    cd ProjetoBanco.Tests
    dotnet test
