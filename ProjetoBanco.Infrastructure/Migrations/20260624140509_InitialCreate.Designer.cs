@@ -12,8 +12,8 @@ using ProjetoBanco.Infrastructure.Data;
 namespace ProjetoBanco.Infrastructure.Migrations
 {
     [DbContext(typeof(BancoDBContext))]
-    [Migration("20260612150131_CriandoTabelaHistorico")]
-    partial class CriandoTabelaHistorico
+    [Migration("20260624140509_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

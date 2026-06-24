@@ -14,6 +14,14 @@ namespace ProjetoBanco.Infrastructure.Data
         public DbSet<ContaPoupanca> ContasPoupancas { get; set; }
         public DbSet<HistoricoResposta> Historicos { get; set; }
 
+        // Construtor para Injeção de Dependência (usado pela Web API e testes)
+        public BancoDBContext(DbContextOptions<BancoDBContext> options) : base(options)
+        {
+        }
+
+        // Construtor padrão para uso no ConsoleApp e migrations via 'dotnet ef'
+        public BancoDBContext() { }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
