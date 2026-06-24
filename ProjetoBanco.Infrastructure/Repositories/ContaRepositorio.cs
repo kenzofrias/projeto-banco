@@ -25,7 +25,7 @@ namespace ProjetoBanco.Infrastructure.Repositories
             }
 
             _context.Contas.Add(conta);
-            await _context.SaveChangesAsync();
+            // A responsabilidade de salvar foi movida para a camada de serviço/aplicação.
         }
 
         public async Task AtualizarContaAsync(Conta conta)
@@ -39,8 +39,7 @@ namespace ProjetoBanco.Infrastructure.Repositories
             }
             
             _context.Contas.Update(conta);
-            
-            await _context.SaveChangesAsync();
+            // A responsabilidade de salvar foi movida para a camada de serviço/aplicação.
         }
 
         public async Task<Conta?> ObterContaPorNumeroAsync(string numero)
@@ -49,11 +48,6 @@ namespace ProjetoBanco.Infrastructure.Repositories
             var conta = await _context.Contas
                 .Include(c => c.Historico)
                 .FirstOrDefaultAsync(c => c.Numero == numero);
-            
-            if (conta == null)
-            {
-                throw new KeyNotFoundException($"[ERRO] A conta de número {numero} não foi encontrada.");
-            }
 
             return conta;
         }
@@ -81,6 +75,11 @@ namespace ProjetoBanco.Infrastructure.Repositories
             var contaRemover = await ObterContaPorNumeroAsync(numeroConta);
 
             _context.Contas.Remove(contaRemover);
+            // A responsabilidade de salvar foi movida para a camada de serviço/aplicação.
+        }
+
+        public async Task SalvarAlteracoesAsync()
+        {
             await _context.SaveChangesAsync();
         }
     }
