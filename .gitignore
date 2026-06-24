@@ -1,3 +1,19 @@
+# Padrões do Visual Studio
+*.suo
+*.user
+*.sln.doc
+.vs/
+
+# Arquivos de build
+[Bb]in/
+[Oo]bj/
+
+# Arquivos do sistema operacional
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Arquivos específicos do projeto (já existentes)
 ProjetoBanco.ConsoleApp/obj
 ProjetoBanco.ConsoleApp/bin
 
@@ -15,3 +31,5 @@ ProjetoBanco.Application/obj
 
 DetalhamentoProjeto.tldr
 Propostas.txt
+
+.env
